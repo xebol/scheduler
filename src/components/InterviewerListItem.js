@@ -10,11 +10,6 @@ export default function InterviewerListItem(props) {
   });
 
 
-  // const interviewerName = function() {
-  //   if (selected && name)
-  // };
-
-
   return (
     <li
       className={intervewierClass}
