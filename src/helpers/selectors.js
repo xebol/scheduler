@@ -10,4 +10,17 @@ export function getAppointmentsForDay(state, day) {
 }
 
 
+export function getInterview(state, interview) {
+  //check if either is null or undefined
+  if (!interview || !interview.interviewer) {
+    return null;
+  }
 
+  const interviewer = state.interviewers[interview.interviewer];
+
+  if (interviewer) {
+    return { ...interview, interviewer };
+  }
+
+  return null;
+}
