@@ -16,10 +16,13 @@ export function getInterview(state, interview) {
     return null;
   }
 
+  //accessing for the interviewer ID
   const interviewer = state.interviewers[interview.interviewer];
 
+  const interviewObj = { ...interview, interviewer }
+
   if (interviewer) {
-    return { ...interview, interviewer };
+    return interviewObj;
   }
 
   return null;
