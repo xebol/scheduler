@@ -4,7 +4,7 @@ import axios from "axios";
 import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
-import { getAppointmentsForDay, getInterview } from "helpers/selectors"
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
 
 export default function Application(props) {
@@ -16,14 +16,14 @@ export default function Application(props) {
   });
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const interviewers = getInterviewersForDay(state, state.day);
 
-  dailyAppointments.forEach( appointment => {
-    return appointment.id, appointment.time, appointment.interview
-  })
+
+  dailyAppointments.forEach(appointment => {
+    return appointment.id, appointment.time, appointment.interview;
+  });
 
   const setDay = day => setState({ ...state, day });
-  // const setDays = days => setState(prev => ({ ...prev, days }));
-
 
 
   useEffect(() => {
@@ -35,25 +35,22 @@ export default function Application(props) {
       .then((all) => {
         console.log('Days', all[0]);
         console.log('Appointments', all[1]);
-        console.log('Interviewers', all[2])
+        console.log('Interviewers', all[2]);
         // setDays(days.data);
         setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
 
       });
   }, []);
 
-  // const appointmentsArray = (appointments) => {
-  //   return dailyAppointments(appointments);
-  // };
 
   const schedule = dailyAppointments.map((appointment) => {
-    console.log('Appt', appointment)
     const interview = getInterview(state, appointment.interview);
     return (
       <Appointment
         key={appointment.id}
         {...appointment}
         interview={interview}
+        interviewers={interviewers}
       />
     );
   }, []);
@@ -63,7 +60,6 @@ export default function Application(props) {
     <main className="layout">
 
       <section className="sidebar">
-        {/* Replace this with the sidebar elements during the "Project Setup & Familiarity" activity. */}
         <img
           className="sidebar--centered"
           src="images/logo.png"
