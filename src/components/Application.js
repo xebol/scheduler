@@ -18,11 +18,6 @@ export default function Application(props) {
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
 
-
-  dailyAppointments.forEach(appointment => {
-    return appointment.id, appointment.time, appointment.interview;
-  });
-
   const setDay = day => setState({ ...state, day });
 
   const bookInterview = (id, interview) => {
@@ -30,13 +25,14 @@ export default function Application(props) {
       ...state.appointments[id],
       interview: { ...interview }
     };
-    console.log('state', interview);
+
+
     const appointments = {
       ...state.appointments,
       [id]: appointment
     };
 
-    setState({ ...state, appointments });
+    setState({ ...state,appointments});
   };
 
 
@@ -48,10 +44,6 @@ export default function Application(props) {
       axios.get("api/interviewers")
     ])
       .then((all) => {
-        console.log('Days', all[0]);
-        console.log('Appointments', all[1]);
-        console.log('Interviewers', all[2]);
-        // setDays(days.data);
         setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
 
       });
@@ -63,13 +55,14 @@ export default function Application(props) {
     return (
       <Appointment
         key={appointment.id}
-        {...appointment}
+        id={appointment.id}
+        time={appointment.time}
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
       />
     );
-  }, []);
+  });
 
 
   return (
@@ -97,6 +90,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {schedule}
+        <Appointment key="last" time="5pm" />
       </section>
 
     </main>

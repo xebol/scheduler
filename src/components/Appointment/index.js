@@ -22,7 +22,7 @@ export default function Appointment(props) {
       interviewer
     };
 
-   console.log(props.bookInterview(props.id, interview))
+   props.bookInterview(props.id, interview)
    transition(SHOW)
   }
 
@@ -37,7 +37,7 @@ export default function Appointment(props) {
       />
       }
       {mode === CREATE && <Form
-        interviewers={[]}
+        interviewers={props.interviewers}
         onCancel={() => back(EMPTY)}
         onSave={save}
         />}
