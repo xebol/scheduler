@@ -25,6 +25,21 @@ export default function Application(props) {
 
   const setDay = day => setState({ ...state, day });
 
+  const bookInterview = (id, interview) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    console.log('state', interview);
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    setState({ ...state, appointments });
+  };
+
+
 
   useEffect(() => {
     Promise.all([
@@ -51,6 +66,7 @@ export default function Application(props) {
         {...appointment}
         interview={interview}
         interviewers={interviewers}
+        bookInterview={bookInterview}
       />
     );
   }, []);
