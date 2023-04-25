@@ -27,10 +27,7 @@ export default function useApplicationData() {
     })
       .then(() => {
         setState({ ...state, appointments: appointments });
-      })
-      // .catch((error) => {
-      //   console.log('Error', error);
-      // });
+      });
   };
 
   const cancelInterview = (id) => {
@@ -46,10 +43,7 @@ export default function useApplicationData() {
     return axios.delete(`/api/appointments/${id}`)
       .then(() => {
         setState({ ...state, appointments: appointments });
-      })
-      // .catch((error) => {
-      //   console.log('Error', error);
-      // });
+      });
   };
 
   //http requests using axios
@@ -66,6 +60,4 @@ export default function useApplicationData() {
   }, []);
 
   return { state, setDay, bookInterview, cancelInterview };
-}
-
-
+};
