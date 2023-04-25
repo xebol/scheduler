@@ -9,6 +9,23 @@ export default function useApplicationData() {
     interviewers: {}
   });
 
+  //http requests using axios
+  useEffect(() => {
+    Promise.all([
+      axios.get("api/days"),
+      axios.get("api/appointments"),
+      axios.get("api/interviewers")
+    ])
+      .then((all) => {
+        setState(prev => ({
+          ...prev, days: all[0].data,
+          appointments: all[1].data,
+          interviewers: all[2].data
+        }));
+
+      });
+  }, []);
+
   const setDay = day => setState({ ...state, day });
 
   const bookInterview = (id, interview) => {
@@ -22,11 +39,13 @@ export default function useApplicationData() {
       [id]: appointment
     };
 
+    console.log('Appointments', appointments);
+
     return axios.put(`/api/appointments/${id}`, {
       interview
     })
       .then(() => {
-        setState({ ...state, appointments: appointments });
+        setState({ ...state, appointments: appointments, days: updateSpots(state, id, appointments) });
       });
   };
 
@@ -42,22 +61,41 @@ export default function useApplicationData() {
     };
     return axios.delete(`/api/appointments/${id}`)
       .then(() => {
-        setState({ ...state, appointments: appointments });
+        setState({ ...state, appointments: appointments, days: updateSpots(state, id, appointments) });
       });
   };
 
-  //http requests using axios
-  useEffect(() => {
-    Promise.all([
-      axios.get("api/days"),
-      axios.get("api/appointments"),
-      axios.get("api/interviewers")
-    ])
-      .then((all) => {
-        setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
+  const updateSpots = (state, id, appointments) => {
+    //day initial value null
+    let bookedDay = null;
 
-      });
-  }, []);
+    //loop through the days to get the day with appointment matching the given id
+    for (let day of state.days) {
+      if (day.appointments.includes(id)) {
+        bookedDay = day;
+      }
+    }
 
-  return { state, setDay, bookInterview, cancelInterview };
+    //get the actual appointments array
+    let appointmentsBooked = bookedDay.appointments.map(id => appointments[id]);
+
+    //get the num of spots remaining by filtering the appoinmentsts with null interview
+    const numOfSpots = appointmentsBooked.filter((appointment) => appointment.interview === null).length;
+
+    //copied the days array into a new variable without changing the state
+    let days = [...state.days];
+
+    //looped through the days and updated the number of spots 
+    for (let d of days) {
+      if (d.name === bookedDay.name) {
+        d.spots = numOfSpots;
+      }
+    }
+
+    //returned the updated spots for the specific day
+    return days;
+  };
+
+
+  return { state, setDay, bookInterview, cancelInterview, updateSpots };
 };

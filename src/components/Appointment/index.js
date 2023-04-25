@@ -39,17 +39,12 @@ export default function Appointment(props) {
       .then(() => {
         transition(SHOW);
       })
-      .catch((error) => transition(ERROR_SAVE, true));
+      .catch(() => transition(ERROR_SAVE, true));
+
   };
 
   // deleting apppointments
-  const remove = (event) => {
-    // const interview = {
-    //   student: name,
-    //   interviewer
-    // };
-
-    transition(CONFIRM, true);
+  const remove = () => {
     transition(DELETING, true);
 
     props
@@ -57,7 +52,7 @@ export default function Appointment(props) {
       .then(() => {
         transition(EMPTY);
       })
-      .catch((error) => transition(ERROR_DELETE, true));
+      .catch(() => transition(ERROR_DELETE, true));
   };
 
   return (

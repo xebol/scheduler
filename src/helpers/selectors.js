@@ -4,10 +4,10 @@ export function getAppointmentsForDay(state, day) {
     return [];
   }
 
+  //
   const appointments = selectedDay.appointments.map(id => state.appointments[id]);
   return appointments;
 }
-
 
 export function getInterview(state, interview) {
   //check if either is null or undefined
