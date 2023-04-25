@@ -7,7 +7,7 @@ import Form from "./Form";
 import Status from "./Status";
 import useVisualMode from "hooks/useVisualMode";
 import Confirm from "./Confirm";
-
+import Error from "./Error";
 
 export default function Appointment(props) {
   const EMPTY = "EMPTY";
@@ -79,11 +79,14 @@ export default function Appointment(props) {
       />
       }
 
-      {mode === ERROR_DELETE && <Status message="Error Deleting"
-        onDelete={() => transition(ERROR_DELETE)} />}
+      {mode === ERROR_DELETE && <Error message="Error: Could not cancel appointment"
+        onDelete={remove}
+        onClose={() => transition(SHOW)} />}
 
-      {mode === ERROR_SAVE && <Status message="Error Saving"
-        onSave={save} />}
+      {mode === ERROR_SAVE && <Error message="Error: Could not save appointment"
+        onSave={save}
+        onClose={() => transition(EMPTY)} />}
+
       {mode === CREATE && <Form
         interviewers={props.interviewers}
         onCancel={() => back(EMPTY)}
