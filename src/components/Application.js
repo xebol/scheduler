@@ -50,7 +50,6 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment
     };
-    console.log('appointments', appointments)
     return axios.delete(`/api/appointments/${id}`, {
       interview
     })
