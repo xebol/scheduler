@@ -10,8 +10,6 @@ import Confirm from "./Confirm";
 
 
 export default function Appointment(props) {
-  console.log('Interviewer', props.interview )
-
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
@@ -19,6 +17,8 @@ export default function Appointment(props) {
   const CONFIRM = "CONFIRM";
   const DELETING = "DELETING";
   const EDIT = "EDIT";
+  const ERROR_SAVE = "ERROR_SAVE";
+  const ERROR_DELETE = "ERROR_DELETE";
 
 
   const { mode, transition, back } = useVisualMode(
@@ -32,39 +32,41 @@ export default function Appointment(props) {
       interviewer
     };
 
-    transition(SAVING);
+    transition(SAVING, true);
 
     props.bookInterview(props.id, interview)
       //when bookInterview promise resolves transition to SHOW mode
       .then(() => {
         transition(SHOW);
-      });
+      })
+      .catch((error) => transition(ERROR_SAVE, true));
   };
 
-  //deleting apppointments
-  const remove = (name, interviewer) => {
-    const interview = {
-      student: name,
-      interviewer
-    };
+  // deleting apppointments
+  const remove = (event) => {
+    // const interview = {
+    //   student: name,
+    //   interviewer
+    // };
 
     transition(CONFIRM, true);
     transition(DELETING, true);
 
-    props.cancelInterview(props.id, interview)
+    props
+      .cancelInterview(props.id)
       .then(() => {
         transition(EMPTY);
-      });
+      })
+      .catch((error) => transition(ERROR_DELETE, true));
   };
-
-  // const edit = (name, interview) => {
-
-  // }
 
   return (
     <article className="appointment">
       <Header time={props.time} />
+      {mode === SAVING && <Status message="Saving" />}
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
+
+      {mode === DELETING && <Status message="Deleting" />}
       {mode === CONFIRM && <Confirm message="Confirm?"
         onConfirm={remove}
         onCancel={() => back(SHOW)} />}
@@ -76,8 +78,12 @@ export default function Appointment(props) {
         onEdit={() => transition(EDIT)}
       />
       }
-      {mode === DELETING && <Status message="Deleting" />}
-      {mode === SAVING && <Status message="Saving" />}
+
+      {mode === ERROR_DELETE && <Status message="Error Deleting"
+        onDelete={() => transition(ERROR_DELETE)} />}
+
+      {mode === ERROR_SAVE && <Status message="Error Saving"
+        onSave={save} />}
       {mode === CREATE && <Form
         interviewers={props.interviewers}
         onCancel={() => back(EMPTY)}
