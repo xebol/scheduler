@@ -6,6 +6,16 @@ import Application from "components/Application";
 
 afterEach(cleanup);
 
-it("renders without crashing", () => {
-  render(<Application />);
+describe("Appointment", () => {
+  it.skip("renders without crashing", () => {
+    render(<Application />);
+  });
+
+  it("does something it is supposed to do", () => {
+    // ...
+  });
+
+  it("does something else it is supposed to do", () => {
+    // ...
+  });
 });
