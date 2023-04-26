@@ -64,8 +64,8 @@ export default function useApplicationData() {
   };
 
   const updateSpots = (state, id, appointments) => {
-    //day initial value null
-    let bookedDay = null;
+    //day initial value
+    let bookedDay = state.day;
 
     //loop through the days to get the day with appointment matching the given id
     for (let day of state.days) {
@@ -75,13 +75,13 @@ export default function useApplicationData() {
     }
 
     //get the actual appointments array
-    let appointmentsBooked = bookedDay.appointments.map(id => appointments[id]);
+    let appointmentsArray = bookedDay.appointments.map(id => appointments[id]);
 
     //get the num of spots remaining by filtering the appoinmentsts with null interview
-    const numOfSpots = appointmentsBooked.filter((appointment) => appointment.interview === null).length;
+    const numOfSpots = appointmentsArray.filter((appointment) => appointment.interview === null).length;
 
     //copied the days array into a new variable without changing the state
-    let days = [...state.days];
+    const days = [...state.days];
 
     //looped through the days and updated the number of spots 
     for (let d of days) {
@@ -90,7 +90,7 @@ export default function useApplicationData() {
       }
     }
 
-    //returned the updated spots for the specific day
+    //return the updated spots for the specific day
     return days;
   };
 

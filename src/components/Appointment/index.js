@@ -63,7 +63,7 @@ export default function Appointment(props) {
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
 
       {mode === DELETING && <Status message="Deleting" />}
-      {mode === CONFIRM && <Confirm message="Confirm?"
+      {mode === CONFIRM && <Confirm message="Confirm Delete?"
         onConfirm={remove}
         onCancel={() => back(SHOW)} />}
 
