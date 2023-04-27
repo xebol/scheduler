@@ -1,8 +1,6 @@
-import React, {Fragment} from "react";
-
+import React, { Fragment } from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-
 import "index.scss";
 
 import Button from "components/Button";
@@ -35,15 +33,19 @@ storiesOf("Button", module)
     </Button>
   ));
 
-storiesOf("DayListItem", module) //Initiates Storybook and registers our DayListItem component
+//Initiates Storybook and registers our DayListItem component
+storiesOf("DayListItem", module)
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
-  }) // Provides the default background color for our component
-  .add("Unselected", () => <DayListItem name="Monday" spots={5} />) // To define our stories, we call add() once for each of our test states to generate a story
+  }) 
+  // Provides the default background color for our component
+  .add("Unselected", () => <DayListItem name="Monday" spots={5} />) 
+  // To define our stories, we call add() once for each of our test states to generate a story
   .add("Selected", () => <DayListItem name="Monday" spots={5} selected />)
   .add("Full", () => <DayListItem name="Monday" spots={0} />)
   .add("Clickable", () => (
-    <DayListItem name="Tuesday" setDay={action("setDay")} spots={5} /> // action() allows us to create a callback that appears in the actions panel when clicked
+    <DayListItem name="Tuesday" setDay={action("setDay")} spots={5} /> 
+    // action() allows us to create a callback that appears in the actions panel when clicked
   ));
 
 
@@ -147,27 +149,27 @@ storiesOf("Appointment", module)
       onCancel={action("onCancel")}
     />
   ))
-  .add("Status", () => <Status message="Deleting"/>)
+  .add("Status", () => <Status message="Deleting" />)
   .add("Error", () => (
     <Error
-     message="Could not delete appointment"
-     onClose={action("onClose")}
-     />
+      message="Could not delete appointment"
+      onClose={action("onClose")}
+    />
   ))
   .add("Edit", () => (
-    <Form 
-    student="Max Black"
-    interviewer={interviewer}
-    interviewers={interviewers}
-    onSave={action("onSave")}
-    onCancel={action("onCancel")}
+    <Form
+      student="Max Black"
+      interviewer={interviewer}
+      interviewers={interviewers}
+      onSave={action("onSave")}
+      onCancel={action("onCancel")}
     />
   ))
   .add("Create", () => (
-    <Form 
-    interviewers={interviewers}
-    onSave={action("onSave")}
-    onCancel={action("onCancel")}
+    <Form
+      interviewers={interviewers}
+      onSave={action("onSave")}
+      onCancel={action("onCancel")}
     />
   ))
   .add("Appointment Empty", () => (
@@ -185,4 +187,4 @@ storiesOf("Appointment", module)
       />
       <Appointment time="5pm" />
     </Fragment>
-  ))
+  ));

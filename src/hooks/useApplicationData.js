@@ -9,7 +9,6 @@ export default function useApplicationData() {
     interviewers: {}
   });
 
-  //http requests using axios
   useEffect(() => {
     Promise.all([
       axios.get("api/days"),

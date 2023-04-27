@@ -1,4 +1,10 @@
 # Interview Scheduler
+Interview Scheduler is a front-end app created with React that allows users to book and cancel interviews. 
+
+# Final Product
+![](#)
+![](#)
+![](#)
 
 ## Setup
 
