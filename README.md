@@ -12,9 +12,9 @@ Interview Scheduler is a front-end app created using Create React App that allow
 Install dependencies with `npm install`.
 
 ## Dependencies
-axios
-@testing-library/react-hooks
-react-test-renderer
+- axios
+- @testing-library/react-hooks
+- react-test-renderer
 
 ## Running Webpack Development Server
 
