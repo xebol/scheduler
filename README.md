@@ -1,5 +1,5 @@
 # Interview Scheduler
-Interview Scheduler is a front-end app created with React that allows users to book and cancel interviews. 
+Interview Scheduler is a front-end app created using Create React App that allows users to book and cancel interviews. 
 
 # Final Product
 !["When a user creates the appointment, the create mode will show the textarea for the user to enter their name and as well as the options of interviewers to be selected"](https://github.com/xebol/scheduler/blob/master/docs/Screenshot%202023-04-27%20at%208.28.54%20AM.png?raw=true)
@@ -10,6 +10,11 @@ Interview Scheduler is a front-end app created with React that allows users to b
 ## Setup
 
 Install dependencies with `npm install`.
+
+## Dependencies
+axios
+@testing-library/react-hooks
+react-test-renderer
 
 ## Running Webpack Development Server
 
