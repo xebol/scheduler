@@ -48,6 +48,23 @@ storiesOf("DayListItem", module)
     // action() allows us to create a callback that appears in the actions panel when clicked
   ));
 
+  const days = [
+    {
+      id: 1,
+      name: "Monday",
+      spots: 2,
+    },
+    {
+      id: 2,
+      name: "Tuesday",
+      spots: 5,
+    },
+    {
+      id: 3,
+      name: "Wednesday",
+      spots: 0,
+    },
+  ];
 
 storiesOf("DayList", module)
   .addParameters({
@@ -159,7 +176,7 @@ storiesOf("Appointment", module)
   .add("Edit", () => (
     <Form
       student="Max Black"
-      interviewer={interviewer}
+      interviewer={1}
       interviewers={interviewers}
       onSave={action("onSave")}
       onCancel={action("onCancel")}
