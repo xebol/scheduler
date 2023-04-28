@@ -11,6 +11,9 @@ Interview Scheduler is a front-end app created using Create React App that allow
 
 Install dependencies with `npm install`.
 
+Set up the server locally by following this repository
+https://github.com/xebol/scheduler-api
+
 ## Dependencies
 - axios
 - @testing-library/react-hooks
@@ -32,4 +35,10 @@ npm test
 
 ```sh
 npm run storybook
+```
+
+## Running Cypress
+
+```
+npm run cypress
 ```
