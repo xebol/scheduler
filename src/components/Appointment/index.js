@@ -31,17 +31,16 @@ export default function Appointment(props) {
       interviewer
     };
 
-    transition(SAVING, true);
+    transition(SAVING);
 
     props.bookInterview(props.id, interview)
       //when bookInterview promise resolves transition to SHOW mode
       .then(() => {
-        console.log('catch error')
         transition(SHOW);
       })
       .catch(() => {
         transition(ERROR_SAVE, true)
-        console.log('error save')});
+      });
 
   };
 
@@ -84,7 +83,7 @@ export default function Appointment(props) {
 
       {mode === ERROR_SAVE && <Error message="Error: Could not save appointment"
         // onSave={save}
-        onClose={() => transition(CREATE)} />}
+        onClose={back} />}
 
       {mode === CREATE && <Form
         interviewers={props.interviewers}
