@@ -3,15 +3,15 @@ import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
 import useApplicationData from "hooks/useApplicationData";
-import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
+import {
+  getAppointmentsForDay,
+  getInterview,
+  getInterviewersForDay,
+} from "helpers/selectors";
 
 export default function Application() {
-  const {
-    state,
-    setDay,
-    bookInterview,
-    cancelInterview
-  } = useApplicationData();
+  const { state, setDay, bookInterview, cancelInterview } =
+    useApplicationData();
 
   const interviewers = getInterviewersForDay(state, state.day);
 
@@ -32,7 +32,6 @@ export default function Application() {
 
   return (
     <main className="layout">
-
       <section className="sidebar">
         <img
           className="sidebar--centered"
@@ -41,14 +40,10 @@ export default function Application() {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-          <DayList
-            days={state.days}
-            value={state.day}
-            onChange={setDay}
-          />
+          <DayList days={state.days} value={state.day} onChange={setDay} />
         </nav>
         <img
-          className="sidebar__lhl sidebar--centered"
+          className="sidebar__lhl sidebar--centered "
           src="images/lhl.png"
           alt="Lighthouse Labs"
         />
@@ -57,7 +52,6 @@ export default function Application() {
         {schedule}
         <Appointment key="last" time="5pm" />
       </section>
-
     </main>
   );
 }
